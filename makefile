@@ -60,6 +60,13 @@ $(DATA_gen)/matches/names/leases_name_matches.csv: \
 	$(CDIR_functions)/match_names.R \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
+	
+$(DATA_gen)/matches/names/jb_name_matches.csv: \
+	$(CDIR_matching)/match_jb_names.R \
+	$(DATA_raw)/leases/leases_jb.Rds \
+	$(CDIR_functions)/match_names.R \
+	$(CDIR_functions)/utils.R 
+	Rscript $<
 
 # ===========================================================================
 # First-stage address match dependencies
@@ -76,6 +83,13 @@ $(DATA_gen)/matches/addresses/modeled_address_matches.csv: \
 $(DATA_gen)/matches/addresses/leases_address_matches.csv: \
 	$(CDIR_matching)/match_leases_addresses.R \
 	$(DATA_raw)/leases/all_leases.Rds \
+	$(CDIR_functions)/match_addresses.R \
+	$(CDIR_functions)/utils.R 
+	Rscript $<
+	
+$(DATA_gen)/matches/addresses/jb_address_matches.csv: \
+	$(CDIR_matching)/match_jb_addresses.R \
+	$(DATA_raw)/leases/leases_jb.Rds \
 	$(CDIR_functions)/match_addresses.R \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
