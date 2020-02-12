@@ -212,7 +212,8 @@ pre_screen_names <- function(name_matches, address_matches, lease_count,
 			name_matches %>% 
 			inner_join(filter(reviewed_pairs, keep == 0), 
 				by = c('name', 'match')) %>% 
-			dplyr::select(-c('keep.x', 'keep.y', 'n.x', 'n.y'))
+			dplyr::select(name, match, shared_words, cosine_similarity, jw_distance,
+			              human_jw_distance, human_cosine_similarity, initials_match)
 	}
 
 	# if we already did some human review on these matches, incorporate it, 
@@ -224,7 +225,7 @@ pre_screen_names <- function(name_matches, address_matches, lease_count,
 			bind_rows(name_matches) %>% 
 			distinct(name, match, .keep_all = T) %>% 
 			arrange(importance_dist) %>% 
-			select(-rf_prob)
+			select(-rf_prob, -prior_check)
 	}
 
 	# if we already have some group matches (that is, verified matches from 
@@ -277,7 +278,7 @@ pre_screen_names <- function(name_matches, address_matches, lease_count,
 		name_matches <- 
 			name_matches %>% 
 			left_join(redundant_edges, by = c('name', 'match')) %>% 
-			mutate(keep = ifelse(is.na(prior_check), keep, prior_check)) 
+			mutate(keep = if_else(is.na(prior_check), keep, prior_check)) 
 
 		# get list of inferred edges implied by completeness to be correct but
 		# not explicitly marked with keep == 1

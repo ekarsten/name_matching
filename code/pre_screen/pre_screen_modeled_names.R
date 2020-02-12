@@ -35,7 +35,7 @@ source(file.path(root, 'code', 'functions', 'pre_screen_names.R'))
 # data read in
 #===========
 
-desc <- read_fst(file.path(rdir, 'pden_desc-2018-09-26.fst'), 
+desc <- read_fst(file.path(rdir, 'pden_desc_arranged-2019-12-03.fst'), 
     columns = c('api_no', 'curr_oper_id', 'curr_oper_no', 
         'common_oper_name')) %>% 
         mutate(api_no = str_replace_all(api_no, '-', '') %>% 

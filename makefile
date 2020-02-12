@@ -119,6 +119,17 @@ $(DATA_rev)/leases_matches.csv: \
 	$(CDIR_functions)/random_forest_utils.R \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
+	
+	
+$(DATA_rev)/jb_matches.csv: \
+	$(CDIR_pre_screen)/pre_screen_jb_names.R \
+	$(DATA_raw)/leases/leases_jb.Rds \
+	$(DATA_gen)/matches/names/jb_name_matches.csv \
+	$(DATA_gen)/matches/addresses/jb_address_matches.csv \
+	$(CDIR_functions)/pre_screen_names.R \
+	$(CDIR_functions)/random_forest_utils.R \
+	$(CDIR_functions)/utils.R 
+	Rscript $<
 
 # ===========================================================================
 # Group all matches
