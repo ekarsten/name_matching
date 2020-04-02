@@ -46,8 +46,8 @@ already_coded_addresses <-  pull(already_coded_addresses, address)
 # all
 df <- 
 	all_leases %>% 
-	rename(address = LesseeAddr, name = Lessee) %>% 
-	select(name, address) 
+	mutate(address = str_c(LesseeAddr, LesseeCStZ, sep = " ")) %>%
+	select(name = Lessee, address) 
 
 output_file <- file.path(ddir, 'matches', 'addresses', 
 	'jb_address_matches.csv')

@@ -42,11 +42,14 @@ name_matches <- read_csv(file.path(ddir, 'matches', 'names',
 	'jb_name_matches.csv'))
 address_matches <- read_csv(file.path(ddir, 'matches', 'addresses', 
 	'jb_address_matches.csv'))
-output_file <- file.path(vdir, 'jb_matches.csv')
+output_file <- file.path(ddir, "matches", 'jb_matches.csv')
 lease_count <- 
 	all_leases %>% 
 	rename(name = Lessee) %>% 
 	mutate(name = str_replace_all(name, '\xc9', 'E')) %>% 
-	count(name) 
+	count(name)
 
-pre_screen_names(name_matches, address_matches, lease_count, output_file)
+review_directory <- file.path(vdir, "leases_jb")
+
+pre_screen_names(name_matches, address_matches, lease_count, output_file,
+                 review_directory)

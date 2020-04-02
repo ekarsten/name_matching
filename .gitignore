@@ -54,3 +54,4 @@ code/scratch/*
 # name matching
 *.html
 .Rproj.user
+*.Rdata

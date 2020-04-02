@@ -50,12 +50,14 @@ name_matches <- read_csv(file.path(ddir, 'matches', 'names',
     'modeled_name_matches.csv'))
 address_matches <- read_csv(file.path(ddir, 'matches', 'addresses', 
 	'modeled_address_matches.csv')) 
-output_file <- file.path(vdir, 'modeled_matches.csv')
+output_file <- file.path(ddir, "matches", 'modeled_matches.csv')
 lease_count <- 
     modeled %>% 
     select(api_no, county, state, shale_play, total_prod, price_per_boe) %>% 
     inner_join(desc, by='api_no') %>% 
     rename(name = common_oper_name) %>% 
     count(name)
+review_directory <- file.path(vdir, "modeled")
 
-pre_screen_names(name_matches, address_matches, lease_count, output_file)
+pre_screen_names(name_matches, address_matches, lease_count, output_file,
+                 review_directory)
