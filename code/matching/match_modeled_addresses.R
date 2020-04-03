@@ -36,14 +36,15 @@ source(file.path(root, 'code', 'functions', 'match_addresses.R'))
 # data read in
 #===========
 
-desc <- read_fst(file.path(rdir, 'pden_desc-2018-09-26.fst'), 
+desc <- read_fst(file.path(rdir, 'pden_desc_arranged-2019-12-03.fst'), 
     columns = c('api_no', 'curr_oper_id', 'curr_oper_no', 
     	'common_oper_name')) %>% 
         mutate(api_no = str_replace_all(api_no, '-', '') %>% 
         stri_pad_right(14, 0)) 
 modeled <- readRDS(file.path(rdir, 'modeled_prices.Rds')) 
 # named: nph_oper_addr
-load(file.path(rdir, 'addresses', 'nph_oper_addr-2017-04-30.Rdata'))
+nph_oper_addr <-
+  read_fst(file.path(rdir, 'addresses', 'nph_oper_addr-2019-12-03.fst'))
 already_coded_addresses <- read_csv(file.path(ddir, 'address_backups', 
     'coded_addresses.csv'))
 

@@ -31,8 +31,7 @@ source(file.path(root, 'code', 'functions', 'pre_screen_names.R'))
 # data read in
 #===========
 
-all_leases <- 
-	readRDS(file.path(rdir, 'leases', 'all_leases.Rds'))
+all_leases <- readRDS(file.path(rdir, 'leases', 'leases_jb.Rds'))
 
 #===========
 # verify name matches with addresses 
@@ -40,17 +39,17 @@ all_leases <-
 
 # all 
 name_matches <- read_csv(file.path(ddir, 'matches', 'names', 
-	'leases_name_matches.csv'))
+	'jb_name_matches.csv'))
 address_matches <- read_csv(file.path(ddir, 'matches', 'addresses', 
-	'leases_address_matches.csv'))
-output_file <- file.path(ddir, "matches", 'leases_matches.csv')
+	'jb_address_matches.csv'))
+output_file <- file.path(ddir, "matches", 'jb_matches.csv')
 lease_count <- 
 	all_leases %>% 
-	rename(name = grnte_al) %>% 
+	rename(name = Lessee) %>% 
 	mutate(name = str_replace_all(name, '\xc9', 'E')) %>% 
-	count(name) 
-review_directory <- file.path(vdir, "leases_di")
+	count(name)
 
+review_directory <- file.path(vdir, "leases_jb")
 
 pre_screen_names(name_matches, address_matches, lease_count, output_file,
                  review_directory)

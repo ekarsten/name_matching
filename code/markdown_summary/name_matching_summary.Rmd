@@ -29,9 +29,9 @@ library(knitr)
 # data read in
 #===========
 
-group_name_matches <- read_csv(file.path(vdir, 'group_name_matches.csv'))
-modeled_matches <- read_csv(file.path(vdir, 'modeled_matches.csv'))
-leases_matches <- read_csv(file.path(vdir, 'leases_matches.csv'))
+group_name_matches <- read_csv(file.path(ddir, "matches", 'group_name_matches.csv'))
+modeled_matches <- read_csv(file.path(ddir, "matches", 'modeled_matches.csv'))
+leases_matches <- read_csv(file.path(ddir, "matches", 'leases_matches.csv'))
 
 lease_keeps <- 
 	leases_matches %>% 

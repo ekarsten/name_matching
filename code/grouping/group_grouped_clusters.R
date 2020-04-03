@@ -32,8 +32,8 @@ source(file.path(root, 'code', 'functions', 'group_matches.R'))
 #===========
 
 df <- read_csv(file.path(ddir, 'grouped_matches', 'all_groups.csv')) 
-group_name_matches <- read_csv(file.path(vdir, 'group_name_matches.csv')) 
-
+group_name_matches <-
+  read_csv(file.path(ddir, "matches", 'group_name_matches.csv')) 
 output_file <- file.path(ddir, 'grouped_matches', 'grouped_groups.csv')
 
 #===========
