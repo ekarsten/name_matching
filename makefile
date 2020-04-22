@@ -57,8 +57,7 @@ $(DATA_gen)/matches/names/modeled_name_matches.csv: \
 $(DATA_gen)/matches/names/leases_name_matches.csv: \
 	$(CDIR_matching)/match_leases_names.R \
 	$(DATA_raw)/leases/all_leases.Rds \
-	$(CDIR_functions)/match_names.R \
-	$(CDIR_functions)/utils.R 
+	$(CDIR_functions)/match_names.R
 	Rscript $<
 	
 $(DATA_gen)/matches/names/jb_name_matches.csv: \
@@ -98,7 +97,7 @@ $(DATA_gen)/matches/addresses/jb_address_matches.csv: \
 # Address/pre-checked matches as verification for name matches 
 # ===========================================================================
 
-$(DATA_rev)/modeled_matches.csv: \
+$(DATA_gen)/matches/modeled_matches.csv: \
 	$(CDIR_pre_screen)/pre_screen_modeled_names.R \
 	$(DATA_raw)/pden_desc_arranged-2019-12-03.fst \
 	$(DATA_raw)/modeled_prices.Rds \
@@ -110,7 +109,7 @@ $(DATA_rev)/modeled_matches.csv: \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
 
-$(DATA_rev)/leases_matches.csv: \
+$(DATA_gen)/matches/leases_matches.csv: \
 	$(CDIR_pre_screen)/pre_screen_leases_names.R \
 	$(DATA_raw)/leases/all_leases.Rds \
 	$(DATA_gen)/matches/names/leases_name_matches.csv \
@@ -121,7 +120,7 @@ $(DATA_rev)/leases_matches.csv: \
 	Rscript $<
 	
 	
-$(DATA_rev)/jb_matches.csv: \
+$(DATA_ge)/matches/jb_matches.csv: \
 	$(CDIR_pre_screen)/pre_screen_jb_names.R \
 	$(DATA_raw)/leases/leases_jb.Rds \
 	$(DATA_gen)/matches/names/jb_name_matches.csv \
@@ -137,9 +136,9 @@ $(DATA_rev)/jb_matches.csv: \
 
 $(DATA_gen)/grouped_matches/all_groups.csv: \
 	$(CDIR_grouping)/group_all_matches.R \
-	$(DATA_rev)/leases_matches.csv \
-	$(DATA_rev)/modeled_matches.csv \
-	$(DATA_rev)/jb_matches.csv \
+	$(DATA_gen)/matches/leases_matches.csv \
+	$(DATA_gen)/matches/modeled_matches.csv \
+	$(DATA_gen)/matches/jb_matches.csv \
 	$(CDIR_functions)/group_matches.R \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
@@ -148,7 +147,7 @@ $(DATA_gen)/grouped_matches/all_groups.csv: \
 # Check for clusters that refer to same entity
 # ===========================================================================
 
-$(DATA_rev)/group_name_matches.csv: \
+$(DATA_gen)/matches/group_name_matches.csv: \
 	$(CDIR_matching)/match_group_names.R \
 	$(DATA_gen)/grouped_matches/all_groups.csv \
 	$(CDIR_functions)/match_names.R \
@@ -159,10 +158,10 @@ $(DATA_rev)/group_name_matches.csv: \
 # Group together duplicate clusters
 # ===========================================================================
 
-$(DATA_gen)/grouped_matches/grouped_groups.csv : \
+$(DATA_gen)/grouped_matches/grouped_groups.csv: \
 	$(CDIR_grouping)/group_grouped_clusters.R \
 	$(DATA_gen)/grouped_matches/all_groups.csv \
-	$(DATA_rev)/group_name_matches.csv \
+	$(DATA_gen)/matches/group_name_matches.csv \
 	$(CDIR_functions)/group_matches.R \
 	$(CDIR_functions)/utils.R 
 	Rscript $<
@@ -171,7 +170,7 @@ $(DATA_gen)/grouped_matches/grouped_groups.csv : \
 # Generate summary file
 # ===========================================================================
 
-$(DATA_gen)/notifications/name_matching_summary.html : \
+$(DATA_gen)/notifications/name_matching_summary.html: \
 	$(CDIR_markdown_summary)/generate_name_matching_summary.R \
 	$(DATA_gen)/grouped_matches/grouped_groups.csv \
 	$(CDIR_markdown_summary)/name_matching_summary.Rmd 

@@ -34,7 +34,8 @@ extract_group_name <- function(no, cc) {
 	group_name <- 
 		cc %>% 
 		filter(cluster==no) %>% 
-		select(name) %>% 
+		select(name) %>%
+	  filter(nchar(name) == min(nchar(name))) %>%
 		arrange() %>% 
 		slice(1) %>% 
 		pull()
